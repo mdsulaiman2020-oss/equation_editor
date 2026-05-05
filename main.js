@@ -12,8 +12,7 @@
 
 'use strict';
 
-// ─── Destructure from CKEditor UMD bundle ────────────────────────────────────
-const {
+import {
   ClassicEditor,
   Autosave,
   Essentials,
@@ -39,7 +38,11 @@ const {
   List,
   ButtonView,
   Plugin,
-} = window.CKEDITOR;
+} from 'ckeditor5';
+
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
+import 'ckeditor5/ckeditor5.css';
 
 // ─── License key ─────────────────────────────────────────────────────────────
 const LICENSE_KEY =
@@ -149,7 +152,7 @@ class DigiValEquationPlugin extends Plugin {
           normalized = `\\begin{gathered}${dlMatch[1]}\\end{gathered}`;
         }
 
-        window.katex.render(normalized, domEl, {
+        katex.render(normalized, domEl, {
           throwOnError: false,
           displayMode: false,
           strict: false,
@@ -164,12 +167,12 @@ class DigiValEquationPlugin extends Plugin {
       }
     };
 
-    if (window.katex) {
+    if (katex) {
       doRender();
     } else {
-      // KaTeX CDN not yet ready — show raw LaTeX as fallback, re-render on load
+      // KaTeX not yet ready — show raw LaTeX as fallback, re-render on load
       domEl.textContent = latex;
-      window.addEventListener('load', () => { if (window.katex) doRender(); }, { once: true });
+      window.addEventListener('load', () => { if (katex) doRender(); }, { once: true });
     }
   }
 
