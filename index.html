@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DigiVal — CKEditor 5 + Equation Editor</title>
+    <script type="module" crossorigin src="/equation_editor/assets/index-AvGlmKSv.js"></script>
+    <link rel="stylesheet" crossorigin href="/equation_editor/assets/index-CsU4nE65.css">
+  </head>
+  <body>
+
+    <div class="page-wrap">
+      <header class="page-header">
+        <span class="page-logo">DigiVal</span>
+        <span class="page-subtitle">Rich Text Editor + Equation Editor Integration</span>
+      </header>
+      <div class="editor-shell">
+        <div id="editor"></div>
+      </div>
+      <div class="page-hint">
+        💡 Click <strong>ƒ(x)</strong> in the toolbar to insert a formula.
+        &nbsp;·&nbsp; <strong>Double-click</strong> any inserted equation to edit it.
+      </div>
+    </div>
+
+    <!--
+      The equation editor component manages its own dialog shell internally
+      (overlay, drag handle, minimize / maximize, Insert / Cancel).
+      No extra HTML needed here.
+    -->
+    <digival-equation-editor id="dve-editor"></digival-equation-editor>
+
+  </body>
+</html>
