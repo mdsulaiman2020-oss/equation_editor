@@ -1,0 +1,114 @@
+/* ── Google Fonts ──────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@media print { body { margin: 0 !important; } }
+
+/* ── Page layout ───────────────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Lato', system-ui, sans-serif;
+  background: #d8dce4;
+  min-height: 100vh;
+}
+
+.page-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.page-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a3a5c;
+  letter-spacing: -.5px;
+}
+.page-subtitle {
+  font-size: 13px;
+  color: #6a7a8c;
+}
+
+/* ── Editor shell ───────────────────────────────────────────────────────────── */
+.editor-shell {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.15);
+  overflow: hidden;
+}
+
+/* CKEditor width constraints */
+:root { --ck-content-font-family: 'Lato'; }
+.editor-container_classic-editor .editor-container__editor {
+  min-width: 795px;
+  max-width: 795px;
+}
+
+.page-hint {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: #6a7a8c;
+  text-align: center;
+}
+
+/* ── Inline formula rendering inside CKEditor content ──────────────────────── */
+
+/* Outer container — !important stops CKEditor's FontSize plugin from
+   cascading a tiny size into the formula wrapper.                             */
+.ck-content .dve-formula--rendered {
+  display: inline-flex !important;
+  align-items: center !important;
+  vertical-align: middle !important;
+  /* intentionally NO font-size here — size is set on .dve-formula-inner
+     via inline style in main.js so it is 100% isolated from CKEditor.        */
+  padding: 3px 8px !important;
+  margin: 0 3px !important;
+  background: rgba(58,106,191,.06) !important;
+  border: 1px solid rgba(58,106,191,.22) !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  line-height: normal !important;
+  transition: background .12s, border-color .12s, box-shadow .12s;
+}
+.ck-content .dve-formula--rendered:hover {
+  background: rgba(58,106,191,.13) !important;
+  border-color: rgba(58,106,191,.5) !important;
+  box-shadow: 0 0 0 2px rgba(58,106,191,.15) !important;
+}
+.ck-content .dve-formula--rendered:hover::after {
+  content: ' ✎';
+  font-size: 12px;
+  color: #3a6abf;
+  margin-left: 3px;
+  opacity: .75;
+}
+
+/* Inner KaTeX wrapper — font-size pinned to 20px via inline style in main.js.
+   DO NOT set font-size here; the inline style on the DOM node takes precedence
+   and guarantees 20px base regardless of surrounding text size.
+   KaTeX scales internally to 1.21× → renders at ~24px naturally.            */
+.ck-content .dve-formula-inner {
+  display: inline-block;
+  pointer-events: none;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Let KaTeX use its own natural sizes — never override katex em scaling */
+.ck-content .dve-formula-inner .katex { vertical-align: middle; }
+.ck-content .dve-formula-inner .katex-html { white-space: nowrap; }
+
+/*
+ * Dialog shell styles (overlay, header, footer, window controls, drag, etc.)
+ * have moved INSIDE the <digival-equation-editor> Web Component (editor.css).
+ * Nothing to define here for the dialog — it is fully self-contained.
+ */
